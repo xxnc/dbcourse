@@ -4,7 +4,7 @@
 
   <db:provider id="DbProvider"
         provider="System.Data.OracleClient"
-        connectionString="User ID=SCOTT;Password=Lover19951116;Data Source=orcl"/>
+        connectionString="User ID=C##DBA;Password=data1234;Data Source=remote"/>
   <object id="HibernateTransactionManager" type="Spring.Data.NHibernate.HibernateTransactionManager, Spring.Data.NHibernate4">
     <property name="SessionFactory" ref="SessionFactory"/>
   </object>

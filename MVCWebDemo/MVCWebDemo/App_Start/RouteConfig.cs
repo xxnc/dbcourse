@@ -23,6 +23,11 @@ namespace MVCWebDemo
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Instructor", action = "GetAllId", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "Account",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Account", action = "CreateCodeImg", id = UrlParameter.Optional }
+            );
         }
     }
 }
