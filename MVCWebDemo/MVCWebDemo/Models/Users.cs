@@ -1,38 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using System.Web;
 
 namespace MVCWebDemo.Models
 {
-    [Serializable]
-    public class Instructor
+    public class Users
     {
-        public virtual string id
-        {
-            get;
-            set;
-        }
-
         public virtual string name
         {
             get;
             set;
         }
 
-        public virtual string dept_name
+        public virtual string pwd
         {
             get;
             set;
         }
 
-        public virtual double salary
+        public virtual string phone
         {
             get;
             set;
         }
 
+        public virtual int role
+        {
+            get;
+            set;
+        }
+
+        public virtual string station_id
+        {
+            get;
+            set;
+        }
     }
 }

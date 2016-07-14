@@ -1,0 +1,113 @@
+﻿
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/Scripts/jquery-1.10.2.js"></script>
+<script src="/Scripts/md5.js"></script>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $(function () {
+            
+            $("#code").blur(function () {
+                $("#register").click(function () {
+                    var md5 = hex_md5($("#name").val().toString())
+                    $.post("/Account/Register",
+                        { name: $("#name").val(), phone: $("#phone").val(), pwd: $("#pwd").val(), role: $("#role").val(),token:md5 },
+                        function (data) {
+                            alert(data);
+                        });
+                    $.post("/Account/Validate",
+                    { code: $("#code").val() },
+                    function (data) {
+                        if (data == "failed") {
+                            $("#error").css("visibility","visible");
+                        }
+                        else {
+                            $("#error").css("visibility", "hidden");
+                        }
+                    });
+
+                }); 
+            });
+
+        });
+    });
+</script>
+
+<form role="form" name="form" ng-app="regform" ng-controller="validateCtrl">
+    <div class="form-group">
+        <label for="name">用户名</label>
+        <input id="name" name="name"class="form-control" type="text" ng-model="name" ng-blur="conflict() " ng-focus="nameFinish=false" required/>
+        <span ng-show="nameFinish&&form.name.$invalid">用户名不能为空</span>
+        <span id="conflict" style="visibility:hidden">用户名已存在</span>
+    </div>
+    <div class="form-group">
+        <label for="phone">联系电话</label>
+        <input id="phone" name="phone" class="form-control" type="number" ng-model="phone" ng-blur="phoneEmpty=true" ng-focus="phoneEmpty=false" ng-maxlength="11" ng-minlength="11"/>
+        <span ng-show="phoneEmpty&&!form.phone.$valid" ng-init="canSubmit=false">联系电话不能为空</span>
+        <span ng-show="(form.phone.$error.minlength||form.phone.$error.maxlength) && form.phone.$dirty" ng-init="canSubmit=false">联系电话格式错误</span>
+    </div>
+    <div class="form-group">
+        <label for="pwd">密码</label>
+        <input id="pwd" name="pwd" class="form-control" type="password" ng-model="pwd" ng-blur="complete=true" ng-focus="complete=false" ng-maxlength="20" ng-minlength="6"/>
+        <span ng-show="form.pwd.$error.minlength && form.pwd.$dirty" ng-init="canSubmit=false">密码长度不能小于6位</span>
+        <span ng-show="form.pwd.$error.maxlength && form.pwd.$dirty" ng-init="canSubmit=false">密码长度不能大于20位</span>
+    </div>
+    <div class="form-group">
+        <label for="repwd">确认密码</label>
+        <input id="repwd" name="repwd" class="form-control" type="password" ng-model="repwd" required/>
+        <span ng-show="complete && form.pwd.$valid && form.repwd.$valid">
+            <span ng-show="pwd!=repwd" ng-init="canSubmit=false">两次输入密码不一致</span>
+        </span>
+    </div>
+    <div class="form-group">
+        <label for="role">用户角色</label>
+        @*<select id="role" ng-model="selectedRole" ng-options="x.role for x in roles"></select>*@
+        <select id="role" class="form-control">
+            <option value="1">管理员1</option>
+            <option value="2">管理员2</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="code">验证码</label>
+        <input id="code" class="form-control" type="text" />
+        <img src="/Account/CreateCodeImg" />
+        <span id="error" style="visibility:hidden">验证码错误</span>
+    </div>
+    <button id="register" class="btn btn-primary" ng-disabled="">注册</button>
+    <span>{{selectedRole.index}}</span>
+</form>
+
+<script>
+    var app = angular.module("regform", []);
+    app.controller("validateCtrl", function ($scope) {
+        $scope.nameFinish = false;
+        $scope.phoneEmpty = false;
+        $scope.complete = false;
+        $scope.canSubmit = false;
+        $scope.roles = [{ role: "管理员1", index: 1 }, { role: "管理员2", index: 2 }, { role: "管理员3", index: 3 }];
+        //$scope.conflict=function(){
+        //    $scope.nameFinish = false;
+        //    var name = "name="+$scope.name;
+        //    $http({
+        //        method: "POST",
+        //        url: "/Account/",
+        //        data: data, 
+        //        headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}  
+        //    }).success(function (data) {
+        //        console.log(data);
+        //        alert(data);
+        //    });
+           
+        //}
+
+    })
+</script>
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

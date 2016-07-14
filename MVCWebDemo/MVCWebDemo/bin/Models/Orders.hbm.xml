@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="MVCWebDemo.Models" assembly="MVCWebDemo" >
+  <class name="Orders" table="ORDERS">
+    <id name="order_id" column="ORDER_ID">
+      <generator class="assigned"/>
+    </id>
+    <property name="from_name" column="FROM_NAME"/>
+    <property name="from_address" column="FROM_ADDRESS"/>
+    <property name="from_phone" column="FROM_NAME"/>
+    <property name="from_zip" column="FROM_ZIP"/>
+    <property name="to_name" column="TO_NAME"/>
+    <property name="to_address" column="TO_ADDRESS"/>
+    <property name="to_phone" column="TO_NAME"/>
+    <property name="to_zip" column="TO_ZIP"/>
+    
+    <property name="cost" column="COST"/>
+    <property name="weight" column="WEIGHT"/>
+    <property name="pay_mode" column="PAY_MODE"/>
+    <property name="order_state" column="ORDER_STATE"/>
+    <property name="create_time" column="CREATE_TIME"/>
+    <property name="edit_time" column="EDIT_TIME"/>
+  </class>
+</hibernate-mapping>

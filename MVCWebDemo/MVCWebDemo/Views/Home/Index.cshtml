@@ -1,41 +1,81 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<script src="/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#register").click(function () {
+            alert("qrwerqe");
+            location.href = "/Account/RegisterForm";
+            
+        });
+        $("#test").click(function () {
+            $.post("/Order/QueryOrder",
+                {station_id:"000001"},
+                function (data) {
+                    alert("test");
+                })
+        })
+        $("#login").click(function () {
+            $.post("/Account/Validate",
+                    { code: $("#code").val() },
+                    function (data) {
+                        if (data == "failed") {
+                            $("#error").css("visibility", "visible");
+                        }
+                        else {
+                            $("#error").css("visibility", "hidden");
+                        }
+                    });
+            $.post("/Account/Login",
+                        { name: $("#name").val(),  pwd: $("#pwd").val() },
+                        function (data) {
+                            if (data == "true")
+                            {
+                                location.href="/Order/"
+                            }
+                            //alert(data);
+                        });
+        })
 
-<form action="/Instructor/GetAllId" method="post">
-    <div class="form-group" style="padding-top:100px">
-        <div class="row">
-            <label for="name" class="control-label col-md-1 col-md-push-3">用户名</label>
-            <div class="col-md-6 col-md-push-3">
-                <input type="text" id="name" class="form-control" />
-            </div>
-        </div>
-        <br />
+    });
+</script>
 
-        <div class="row">
-            <label for="pwd" class="control-label col-md-1 col-md-push-3">密码</label>
-            <div class="col-md-6 col-md-push-3">
-                <input type="text" id="pwd" class="form-control" />
-            </div>
-        </div>
-        <br />
-        <div class="row">
-            <label for="validate" class="control-label col-md-1 col-md-push-3">验证码</label>
-            <div class="col-md-4 col-md-push-3">
-                <input type="text" id="validate" class="form-control" />
-            </div>
-            <div class="col-md-3 col-md-push-3">
-                <img style="height:50px;width:90px" src=/Account/CreateCodeImg id="codeImg" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2 col-md-push-4">
-                <button class="btn btn-primary col-md-6" id="login">登录</button>
-            </div>
-            <div class="col-md-2 col-md-push-4">
-                <button class="btn btn-primary col-md-6" id="register">注册</button>
-            </div>
+<div class="form-group" style="padding-top:100px">
+    <div class="row">
+        <label for="name" class="control-label col-md-1 col-md-push-3">用户名</label>
+        <div class="col-md-6 col-md-push-3">
+            <input type="text" id="name" class="form-control" />
         </div>
     </div>
-</form>
+    <br />
+
+    <div class="row">
+        <label for="pwd" class="control-label col-md-1 col-md-push-3">密码</label>
+        <div class="col-md-6 col-md-push-3">
+            <input type="text" id="pwd" class="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <label for="validate" class="control-label col-md-1 col-md-push-3">验证码</label>
+        <div class="col-md-4 col-md-push-3">
+            <input type="text" id="validate" class="form-control" />
+        </div>
+        <div class="col-md-3 col-md-push-3">
+            <img id="code" style="height:50px;width:90px" src="/Account/CreateCodeImg" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-md-push-4">
+            <button class="btn btn-primary col-md-6" id="login">登录</button>
+        </div>
+        <div class="col-md-2 col-md-push-4">
+            <button class="btn btn-primary col-md-6" id="register">注册</button>
+        </div>
+    </div>
+    <button id="test">test</button>
+</div>
+   
+
 

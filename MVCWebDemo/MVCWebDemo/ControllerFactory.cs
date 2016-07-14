@@ -29,9 +29,6 @@ namespace MVCWebDemo
             {
                 throw new ArgumentException("controllerName");
             }
-       
-
-
 
             IApplicationContext ctx = ContextRegistry.GetContext();
             if (ctx.ContainsObject(controllerName))
@@ -48,18 +45,18 @@ namespace MVCWebDemo
             }
         }
 
-        //public override void ReleaseController(IController controller)
-        //{
-        //    IApplicationContext ctx = ContextRegistry.GetContext();
-        //    if (!ctx.ContainsObject(controller.GetType().Name.Replace("Controller", "")))
-        //    {
-        //        if (defaultControllerFactory == null)
-        //        {
-        //            defaultControllerFactory = new DefaultControllerFactory();
-        //        }
-        //        defaultControllerFactory.ReleaseController(controller);
-        //    }
-        //}
+        public override void ReleaseController(IController controller)
+        {
+            IApplicationContext ctx = ContextRegistry.GetContext();
+            if (!ctx.ContainsObject(controller.GetType().Name.Replace("Controller", "")))
+            {
+                if (defaultControllerFactory == null)
+                {
+                    defaultControllerFactory = new DefaultControllerFactory();
+                }
+                defaultControllerFactory.ReleaseController(controller);
+            }
+        }
 
         #endregion
     }
