@@ -13,7 +13,7 @@
             <div style="display: inline">
                 <label for="station_id">站点编号</label>
             </div>
-            <div style="display: inline">
+            <div style="display: inline" id="station_id" ng-model="station_id">
                 afsdf
             </div>
         </div>
@@ -83,7 +83,7 @@
                 </ul>
             </div>
         </nav>
-        <table class="table">
+        <table class="table" ng-controller="orderInfoCtrl">
             <thead>
                 <tr>
                     <th>订单号</th>
@@ -106,20 +106,20 @@
                     <td>{{x.order_state}}</td>
                 </tr>
                 <!--<tr class="success">
-                    <td>产品2</td>
-                    <td>10/11/2013</td>
-                    <td>发货中</td>
-                </tr>
-                <tr  class="warning">
-                    <td>产品3</td>
-                    <td>20/10/2013</td>
-                    <td>待确认</td>
-                </tr>
-                <tr  class="danger">
-                    <td>产品4</td>
-                    <td>20/10/2013</td>
-                    <td>已退货</td>
-                </tr>-->
+                <td>产品2</td>
+                <td>10/11/2013</td>
+                <td>发货中</td>
+            </tr>
+            <tr  class="warning">
+                <td>产品3</td>
+                <td>20/10/2013</td>
+                <td>待确认</td>
+            </tr>
+            <tr  class="danger">
+                <td>产品4</td>
+                <td>20/10/2013</td>
+                <td>已退货</td>
+            </tr>-->
             </tbody>
         </table>
     </div>
@@ -131,13 +131,16 @@
     <script>
         var app = angular.module("app", []);
         app.controller("orderInfoCtrl", function ($scope, $q, $http) {
+            $http.get("/Order/QueryOrder")
+    .success(function (response) { $scope.names = response.records; });
             $scope.orders;
-            //				$http({
-            //					method:"POST",
-            //					url:"/Order/QueryOrder",
-            //					data:{station_id}
-            //				}
-            //				);
+            //$http({
+            //    method: "POST",
+            //    url: "/Order/QueryOrder",
+            //    params: { "station_id": $scope.station_id }
+            //}).success(function (resp) {
+
+            //});
             //				.post("").success(function(response){
             //					$scope.orders=response.records;
             //				})

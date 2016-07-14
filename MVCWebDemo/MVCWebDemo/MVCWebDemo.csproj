@@ -213,7 +213,7 @@
     <Compile Include="DAOImpl\UsersDAOImpl.cs" />
     <Compile Include="DAO\OrdersDAO.cs" />
     <Compile Include="DAO\UsersDAO.cs" />
-    <Compile Include="Filter\LoginFliter.cs" />
+    <Compile Include="Filter\LoginFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
