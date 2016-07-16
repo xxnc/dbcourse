@@ -133,8 +133,8 @@
         var app = angular.module("app", []);
         app.controller("orderInfoCtrl", function ($scope, $q, $http) {
             $http.get("/Order/QueryOrder")
-    .success(function (response) { $scope.names = response.records; });
-            $scope.orders;
+    .success(function (response) { $scope.orders = response; });
+      
             //$http({
             //    method: "POST",
             //    url: "/Order/QueryOrder",

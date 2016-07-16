@@ -27,9 +27,11 @@ namespace MVCWebDemo.Controllers
             Dictionary<string, string> info = new Dictionary<string, string>();
             info.Add("station_id",Session["station_id"].ToString());
             info.Add("page_id", Request["page_id"]);//默认一页十行
+            info.Add("pageNow", "3");//假数据
 
-            Dictionary<string,object> result=ordersService.AllOrders(info);
-            IList<Orders> orderInfo = (IList<Orders>)result["orderInfo"];
+
+            Dictionary<string,object> result=ordersService.allOrders(info);
+            IList<object> orderInfo = (IList<object>)result["orderInfo"];
             int pageNum = (int)result["pageNum"];
             JsonResult json = Json(result, JsonRequestBehavior.AllowGet);
             Response.Write(json);
