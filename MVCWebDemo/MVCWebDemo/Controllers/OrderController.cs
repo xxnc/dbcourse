@@ -14,7 +14,6 @@ namespace MVCWebDemo.Controllers
     {
 
         public OrdersService ordersService { get; set; }
-
         //
         // GET: /Order/
         public ActionResult Index()
@@ -26,9 +25,10 @@ namespace MVCWebDemo.Controllers
         public void QueryOrder()
         {
             Dictionary<string, string> info = new Dictionary<string, string>();
-            info.Add("station_id",Request["station_id"]);
-            ordersService.AllOrders(info);
-            
+            info.Add("station_id",Session["station_id"].ToString());
+            IList<Orders> result=ordersService.AllOrders(info);
+            JsonResult json = Json(result, JsonRequestBehavior.AllowGet);
+            Response.Write(json);
         }
 
 

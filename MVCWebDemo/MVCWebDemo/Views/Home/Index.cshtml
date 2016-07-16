@@ -22,6 +22,7 @@
                     function (data) {
                         if (data == "failed") {
                             $("#error").css("visibility", "visible");
+                            return;
                         }
                         else {
                             $("#error").css("visibility", "hidden");

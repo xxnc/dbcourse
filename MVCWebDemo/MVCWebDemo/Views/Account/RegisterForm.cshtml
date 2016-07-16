@@ -3,11 +3,10 @@
 <script src="/Scripts/jquery-1.10.2.js"></script>
 <script src="/Scripts/md5.js"></script>
 <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
-
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
 <script type="text/javascript">
     $(function () {
         $(function () {
-            
             $("#code").blur(function () {
                 $("#register").click(function () {
                     var md5 = hex_md5($("#name").val().toString())
@@ -35,31 +34,38 @@
 </script>
 
 <form role="form" name="form" ng-app="regform" ng-controller="validateCtrl">
+
     <div class="form-group">
         <label for="name">用户名</label>
-        <input id="name" name="name"class="form-control" type="text" ng-model="name" ng-blur="conflict() " ng-focus="nameFinish=false" required/>
-        <span ng-show="nameFinish&&form.name.$invalid">用户名不能为空</span>
-        <span id="conflict" style="visibility:hidden">用户名已存在</span>
+        <input id="name" name="name"class="form-control" type="text" ng-model="name" ng-blur="nameFinish=true" ng-focus="nameFinish=false" required/>
+
+        <span ng-show="nameFinish && !form.name.$valid">用户名不能为空</span>
+        <span ng-show="nameFinish && isConflict()">用户名已存在</span>
     </div>
+
     <div class="form-group">
         <label for="phone">联系电话</label>
-        <input id="phone" name="phone" class="form-control" type="number" ng-model="phone" ng-blur="phoneEmpty=true" ng-focus="phoneEmpty=false" ng-maxlength="11" ng-minlength="11"/>
-        <span ng-show="phoneEmpty&&!form.phone.$valid" ng-init="canSubmit=false">联系电话不能为空</span>
-        <span ng-show="(form.phone.$error.minlength||form.phone.$error.maxlength) && form.phone.$dirty" ng-init="canSubmit=false">联系电话格式错误</span>
+        <input id="phone" name="phone" class="form-control" type="tel" ng-model="phone" ng-blur="phoneFinish=true" ng-focus="phoneFinish=false" ng-maxlength="11" ng-minlength="11" required/>
+
+        <span ng-show="phoneFinish && !form.phone.$valid">联系电话不能为空</span>
+        <span ng-show="phoneFinish && (form.phone.$error.minlength||form.phone.$error.maxlength)">联系电话格式错误</span>
     </div>
+
     <div class="form-group">
         <label for="pwd">密码</label>
-        <input id="pwd" name="pwd" class="form-control" type="password" ng-model="pwd" ng-blur="complete=true" ng-focus="complete=false" ng-maxlength="20" ng-minlength="6"/>
-        <span ng-show="form.pwd.$error.minlength && form.pwd.$dirty" ng-init="canSubmit=false">密码长度不能小于6位</span>
-        <span ng-show="form.pwd.$error.maxlength && form.pwd.$dirty" ng-init="canSubmit=false">密码长度不能大于20位</span>
+        <input id="pwd" name="pwd" class="form-control" type="password" ng-model="pwd" ng-blur="pwdFinish=true" ng-focus="pwdFinish=false" ng-maxlength="20" ng-minlength="6" required/>
+
+        <span ng-show="form.pwd.$error.minlength && pwdFinish">密码长度不能小于6位</span>
+        <span ng-show="form.pwd.$error.maxlength && pwdFinish">密码长度不能大于20位</span>
     </div>
+
     <div class="form-group">
         <label for="repwd">确认密码</label>
         <input id="repwd" name="repwd" class="form-control" type="password" ng-model="repwd" required/>
-        <span ng-show="complete && form.pwd.$valid && form.repwd.$valid">
-            <span ng-show="pwd!=repwd" ng-init="canSubmit=false">两次输入密码不一致</span>
-        </span>
+
+        <span ng-show="pwd!=repwd && form.pwd.$valid && form.repwd.$valid">两次输入密码不一致</span>
     </div>
+
     <div class="form-group">
         <label for="role">用户角色</label>
         @*<select id="role" ng-model="selectedRole" ng-options="x.role for x in roles"></select>*@
@@ -68,27 +74,50 @@
             <option value="2">管理员2</option>
         </select>
     </div>
+
     <div class="form-group">
         <label for="code">验证码</label>
-        <input id="code" class="form-control" type="text" />
+        <input id="code" class="form-control" type="text" ng-model="code" ng-blur="codeFinish=true" ng-focus="codeFinish=false" />
         <img src="/Account/CreateCodeImg" />
-        <span id="error" style="visibility:hidden">验证码错误</span>
+        <span id="error" ng-show="codeFinish && isError()">验证码错误</span>
     </div>
+
     <button id="register" class="btn btn-primary" ng-disabled="">注册</button>
-    <span>{{selectedRole.index}}</span>
+    <br />
+    <br/>
+    <span ng-show="form.$invalid || pwd!=repwd || error">wfasdfdssss</span>
 </form>
 
 <script>
     var app = angular.module("regform", []);
-    app.controller("validateCtrl", function ($scope) {
+    app.controller("validateCtrl", function ($scope, $q , $http) {
         $scope.nameFinish = false;
-        $scope.phoneEmpty = false;
-        $scope.complete = false;
-        $scope.canSubmit = false;
+        $scope.phoneFinish = false;
+        $scope.pwdFinish = false;
+        $scope.codeFinish = false;
+        $scope.error = true;
         $scope.roles = [{ role: "管理员1", index: 1 }, { role: "管理员2", index: 2 }, { role: "管理员3", index: 3 }];
-        //$scope.conflict=function(){
-        //    $scope.nameFinish = false;
-        //    var name = "name="+$scope.name;
+        $scope.isError = function () {
+            //$http.get("/Account/Validate")
+            //$http.post(
+            //    "/Account/Validate",
+            //    { "code": $scope.code }
+
+            //);
+            $http({
+                method : "POST",
+                url : "/Account/Validate",
+                params : {
+                    "code":$scope.code
+                }
+            }).success(function(response, status, headers, config){
+                alert(response);
+            });
+            
+        }
+        $scope.isConflict=function(){
+            //$scope.nameFinish = true;
+            var name = "name="+$scope.name;}
         //    $http({
         //        method: "POST",
         //        url: "/Account/",
@@ -97,8 +126,7 @@
         //    }).success(function (data) {
         //        console.log(data);
         //        alert(data);
-        //    });
-           
+        //    });  
         //}
 
     })

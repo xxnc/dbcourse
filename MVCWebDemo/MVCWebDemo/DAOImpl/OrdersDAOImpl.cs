@@ -17,7 +17,8 @@ namespace MVCWebDemo.DAOImpl
         public IList<Orders> getEntity(Dictionary<string, string> info)
         {
             ISession session = factory.OpenSession();
-            var query = session.CreateSQLQuery("select * from orders where from_station = "+info["station_id"]+"or to_station = "+info["station_id"] );
+            string hsql = "select * from orders where from_station = " + info["station_id"] + "or to_station = " + info["station_id"];
+            var query = session.CreateSQLQuery(hsql );
 
             return query.List<Orders>();
         }
