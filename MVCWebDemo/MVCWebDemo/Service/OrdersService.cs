@@ -10,6 +10,6 @@ namespace MVCWebDemo.Service
 {
     public interface OrdersService
     {
-        IList<Orders> AllOrders(Dictionary<string, string> info);
+        Dictionary<string, object> AllOrders(Dictionary<string, string> info);
     }
 }

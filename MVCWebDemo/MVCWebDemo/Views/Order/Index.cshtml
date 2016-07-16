@@ -129,6 +129,7 @@
     <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
     <script>
+        
         var app = angular.module("app", []);
         app.controller("orderInfoCtrl", function ($scope, $q, $http) {
             $http.get("/Order/QueryOrder")

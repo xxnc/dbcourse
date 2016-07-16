@@ -26,7 +26,11 @@ namespace MVCWebDemo.Controllers
         {
             Dictionary<string, string> info = new Dictionary<string, string>();
             info.Add("station_id",Session["station_id"].ToString());
-            IList<Orders> result=ordersService.AllOrders(info);
+            info.Add("page_id", Request["page_id"]);//默认一页十行
+
+            Dictionary<string,object> result=ordersService.AllOrders(info);
+            IList<Orders> orderInfo = (IList<Orders>)result["orderInfo"];
+            int pageNum = (int)result["pageNum"];
             JsonResult json = Json(result, JsonRequestBehavior.AllowGet);
             Response.Write(json);
         }
@@ -39,9 +43,22 @@ namespace MVCWebDemo.Controllers
 
       
         //新建订单 所有信息 
-        public void CreateOrder()
+        public void CreateNewOrder()
         {
-           
+            Dictionary<string, string> info = new Dictionary<string, string>();
+            info.Add("order_id", Request["order_id"]);
+            info.Add("from_name", Request["from_name"]);
+            info.Add("from_phone", Request["from_phone"]);
+            /*Address*/
+            info.Add("to_name", Request["to_name"]);
+            info.Add("to_phone", Request["to_phone"]);
+
+            info.Add("weight", Request["weight"]);
+            info.Add("pay_mode", Request["pay_mode"]);
+
+
+
+
         }
 
         //修改订单信息

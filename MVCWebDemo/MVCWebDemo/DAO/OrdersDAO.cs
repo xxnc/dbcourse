@@ -8,7 +8,7 @@ namespace MVCWebDemo.DAO
 {
     public interface OrdersDAO
     {
-        IList<Orders> getEntity(Dictionary<string, string> info);
+        Dictionary<string, object> getEntity(Dictionary<string, string> info);
 
     }
 

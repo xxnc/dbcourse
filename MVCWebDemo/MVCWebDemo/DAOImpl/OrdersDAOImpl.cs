@@ -14,13 +14,28 @@ namespace MVCWebDemo.DAOImpl
     public class OrdersDAOImpl:OrdersDAO
     {
         public ISessionFactory factory { set; get; }
-        public IList<Orders> getEntity(Dictionary<string, string> info)
+
+        public Dictionary<string,object> getEntity(Dictionary<string, string> info)
         {
             ISession session = factory.OpenSession();
-            string hsql = "select * from orders where from_station = " + info["station_id"] + "or to_station = " + info["station_id"];
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            
+            string hsql = "select count(*) from orders";// where from_station = " + info["station_id"] + "or to_station = " + info["station_id"];
+            int allPages=(int)session.CreateSQLQuery(hsql).UniqueResult();
+            hsql = "select * from （select t.*,rownum from table1 t)where rownum> (pangeNow - 1) * 10 and rownum<= (pageNow) * 10";
             var query = session.CreateSQLQuery(hsql );
-
-            return query.List<Orders>();
+            int pageNum = 0;
+            if (allPages % 10 != 0)
+            {
+                pageNum = allPages / 10 + 1;
+            }
+            else
+            {
+                pageNum = allPages / 10;
+            }
+            result.Add("pageNum", pageNum);
+            result.Add("orderInfo", query.List<Orders>());
+            return result;
         }
 
     }

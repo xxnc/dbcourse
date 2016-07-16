@@ -13,7 +13,7 @@ namespace MVCWebDemo.ServiceImpl
     {
         public OrdersDAO ordersDAO { set; get; }
 
-        public IList<Orders> AllOrders(Dictionary<string, string> info)
+        public Dictionary<string, object> AllOrders(Dictionary<string, string> info)
         {
 
             return ordersDAO.getEntity(info);
