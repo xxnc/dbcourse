@@ -4,24 +4,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>订单管理</title>
     <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/basic.css" rel="stylesheet">
+    <link href="/Content/ng-pagination.min.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="container-fluid" style="background-color: black;" ng-app="app">
+    <div class="container-fluid" ng-app="app" ng-controller="orderInfoCtrl">
         <br />
-        <div class="header" style="margin-left: 85%">
-            <div style="display: inline">
-                <label for="station_id">站点编号</label>
-            </div>
-            <div style="display: inline" id="station_id" ng-model="station_id">
-                afsdf
-            </div>
-        </div>
+        <header style="margin-left: 85%">
+            <span style="float:right" ng-bind="station_id"></span>
+            <span style="float:right">站点编号:</span>
+
+        </header>
         <form role="form">
             <br />
             <br />
             <div class="form-group ">
-                <div class=" col-md-4 col-md-push-4 col-sm-4 col-sm-push-4">
+                <div class=" col-md-5 col-md-push-4 col-sm-5 col-sm-push-4">
                     <input type="text" class="form-control" id="name" placeholder="请输入订单号">
                 </div>
                 <br />
@@ -41,49 +38,24 @@
                 <br />
             </div>
         </form>
-        <div>
-
-        </div>
-
-
 
 
         <nav class="navbar navbar-inverse" role="navigation">
-            <!--<div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse"  data-target="#example-navbar-collapse">
-                    <span class="sr-only">切换导航</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>-->
             <div class="collapse navbar-collapse" id="example-navbar-collapse">
                 <ul class="nav navbar-nav" style="width: 100%;">
+
                     <li style="width: 14.2%;"><a href="#">所有订单</a></li>
-                    <li style="width: 14.2%;"><a href="#">已完成</a></li>
-                    <li style="width: 14.2%;"><a href="#">配送中</a></li>
-                    <li style="width: 14.2%;"><a href="#">未配送</a></li>
-                    <li style="width: 14.2%;"><a href="#">运输中</a></li>
                     <li style="width: 14.2%;"><a href="#">未取件</a></li>
-                    <li style="width: 14.2%;"><a href="#">已取件</a></li>
-                    <!--<li class="dropdown">
-                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                          Java <b class="caret"></b>
-                       </a>
-                       <ul class="dropdown-menu">
-                          <li><a href="#">jmeter</a></li>
-                          <li><a href="#">EJB</a></li>
-                          <li><a href="#">Jasper Report</a></li>
-                          <li class="divider"></li>
-                          <li><a href="#">分离的链接</a></li>
-                          <li class="divider"></li>
-                          <li><a href="#">另一个分离的链接</a></li>
-                       </ul>
-                    </li>-->
+                    <li style="width: 14.2%;"><a href="#">运输中</a></li>
+                    <li style="width: 14.2%;"><a href="#">配送中</a></li>
+                    <li style="width: 14.2%;"><a href="#">已签收</a></li>
+                    <li style="width: 14.2%;"><a href="#">已完成</a></li>
+                    
+                    
                 </ul>
             </div>
         </nav>
-        <table class="table" ng-controller="orderInfoCtrl">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>订单号</th>
@@ -95,57 +67,69 @@
                     <th>状态</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="x in orders">
-                <tr class="active">
-                    <td>{{x.order_id}}</td>
-                    <td>{{x.to_name}}</td>
-                    <td>{{x.from_name}}</td>
-                    <td>{{x.cost}}</td>
-                    <td>{{x.weight}}</td>
-                    <td>{{x.pay_mode}}</td>
-                    <td>{{x.order_state}}</td>
+            <tbody>
+                <tr ng-repeat="x in orders">
+                    <td>{{x[1]}}</td>
+                    <td>{{x[2]}}</td>
+                    <td>{{x[3]}}</td>
+                    <td>{{x[4]}}</td>
+                    <td>{{x[5]}}</td>
+                    <td>{{x[6]}}</td>
+                    <td>{{x[7]}}</td>
                 </tr>
-                <!--<tr class="success">
-                <td>产品2</td>
-                <td>10/11/2013</td>
-                <td>发货中</td>
-            </tr>
-            <tr  class="warning">
-                <td>产品3</td>
-                <td>20/10/2013</td>
-                <td>待确认</td>
-            </tr>
-            <tr  class="danger">
-                <td>产品4</td>
-                <td>20/10/2013</td>
-                <td>已退货</td>
-            </tr>-->
             </tbody>
-        </table>
-    </div>
 
-    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+        </table>
+        <div class="pager">
+            <pager page-count="pageCount" current-page="currentPage" on-page-change="onPageChange()" first-text="首页" next-text="下一页" prev-text="上一页" last-text="尾页" show-goto="true" goto-text="跳转到"></pager>
+        </div>
+    </div>
+    
+    <script src="/Scripts/angular.min.js"></script>
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
     <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-
+    <script src="/Scripts/ng-pagination.min.js"></script>
     <script>
-        
-        var app = angular.module("app", []);
-        app.controller("orderInfoCtrl", function ($scope, $q, $http) {
-            $http.get("/Order/QueryOrder")
-    .success(function (response) { $scope.orders = response; });
-      
-            //$http({
-            //    method: "POST",
-            //    url: "/Order/QueryOrder",
-            //    params: { "station_id": $scope.station_id }
-            //}).success(function (resp) {
+        var app = angular.module("app", ['ng-pagination']);
 
-            //});
-            //				.post("").success(function(response){
-            //					$scope.orders=response.records;
-            //				})
-        })
+     
+
+        app.controller("orderInfoCtrl", function ($scope, $q, $http) {
+            $scope.station_id;
+            $scope.isInit = true;
+            
+            var ajax = function (pageNow) {
+                
+                $http({
+                    method: "GET",
+                    url: "/Order/QueryOrder",
+                    params: {
+                        "pageNow": pageNow
+                    }
+                }).success(function (response) {
+                    var jsonResult = angular.fromJson(response);
+                    var pageNum = jsonResult.pageNum;
+                    alert(jsonResult.station_id);
+                    $scope.station_id = jsonResult.station_id;
+                    $scope.orders = jsonResult.orderInfo;
+                    alert($scope.orders[0][3]);
+                    //$scope.orders = response;
+                });
+            }
+            if ($scope.isInit) {
+                $scope.isInit = false;
+                ajax(1);
+            }
+            $scope.onPageChange = function () {
+                ajax($scope.currentPage);
+                //console.log($scope.currentPage);
+            };
+
+            // set pagecount in $scope
+            $scope.pageCount = 100;
+        });
+            
+       
     </script>
 </body>
 

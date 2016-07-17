@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;  
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,6 +8,10 @@ using MVCWebDemo.Models;
 using MVCWebDemo.Service;
 using System.Collections;
 using MVCWebDemo.Filter;
+using System.Runtime.Serialization.Json;
+using System.Runtime.Serialization;
+using System.Web.Script.Serialization;
+
 namespace MVCWebDemo.Controllers
 {
     [LoginFilter]
@@ -27,13 +32,13 @@ namespace MVCWebDemo.Controllers
             Dictionary<string, string> info = new Dictionary<string, string>();
             info.Add("station_id",Session["station_id"].ToString());
             info.Add("page_id", Request["page_id"]);//默认一页十行
-            info.Add("pageNow", "3");//假数据
+            info.Add("pageNow",Request["pageNow"]);//假数据
 
-
+            
             Dictionary<string,object> result=ordersService.allOrders(info);
-            IList<object> orderInfo = (IList<object>)result["orderInfo"];
-            int pageNum = (int)result["pageNum"];
-            JsonResult json = Json(result, JsonRequestBehavior.AllowGet);
+            result.Add("station_id", Session["station_id"]);
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            string json = jss.Serialize(result);
             Response.Write(json);
         }
 

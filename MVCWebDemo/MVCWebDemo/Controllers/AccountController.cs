@@ -82,12 +82,12 @@ namespace MVCWebDemo.Controllers
         {
             if(Session["chkcode"].Equals(Request["code"]))
             {
-                Response.Write("success");
+                Response.Write("true");
 
             }
             else
             {
-                Response.Write("failed");
+                Response.Write("false");
 
             }
         }

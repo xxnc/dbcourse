@@ -117,8 +117,6 @@ C:\Users\Administrator\Documents\Visual Studio 2013\Projects\dbcourse\MVCWebDemo
 C:\Users\Administrator\Documents\Visual Studio 2013\Projects\dbcourse\MVCWebDemo\MVCWebDemo\bin\Config\DAOConfig.xml
 C:\Users\Administrator\Documents\Visual Studio 2013\Projects\dbcourse\MVCWebDemo\MVCWebDemo\bin\Config\DataConfig.xml
 C:\Users\Administrator\Documents\Visual Studio 2013\Projects\dbcourse\MVCWebDemo\MVCWebDemo\bin\Config\ServiceConfig.xml
-C:\Users\Administrator\Documents\Visual Studio 2013\Projects\dbcourse\MVCWebDemo\MVCWebDemo\bin\Models\Instructor.hbm.xml
-C:\Users\Administrator\Documents\Visual Studio 2013\Projects\dbcourse\MVCWebDemo\MVCWebDemo\bin\Models\Instructor.cs
 C:\Users\Administrator\Documents\Visual Studio 2013\Projects\dbcourse\MVCWebDemo\MVCWebDemo\bin\MVCWebDemo.dll.config
 C:\Users\Administrator\Documents\Visual Studio 2013\Projects\dbcourse\MVCWebDemo\MVCWebDemo\bin\MVCWebDemo.dll
 C:\Users\Administrator\Documents\Visual Studio 2013\Projects\dbcourse\MVCWebDemo\MVCWebDemo\bin\MVCWebDemo.pdb
@@ -587,3 +585,4 @@ C:\Users\appleclub\Documents\dbcourse\MVCWebDemo\MVCWebDemo\bin\zh-Hans\System.N
 C:\Users\appleclub\Documents\dbcourse\MVCWebDemo\MVCWebDemo\obj\Release\MVCWebDemo.csprojResolveAssemblyReference.cache
 C:\Users\appleclub\Documents\dbcourse\MVCWebDemo\MVCWebDemo\obj\Release\MVCWebDemo.dll
 C:\Users\appleclub\Documents\dbcourse\MVCWebDemo\MVCWebDemo\obj\Release\MVCWebDemo.pdb
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\dbcourse\MVCWebDemo\MVCWebDemo\bin\Models\Orders.hbm.xml
