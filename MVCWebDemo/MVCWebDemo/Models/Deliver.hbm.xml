@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="MVCWebDemo.Models" assembly="MVCWebDemo" >
+  <class name="Deliver" table="DELIVER">
+    <id name="order_id" column="ORDER_ID">
+      <generator class="assigned"/>
+    </id>
+    <property name="start_time" column="START_TIME"/>
+    <property name="delivery_state" column="DELIVERY_STATE"/>
+    <property name="employee_id" column="EMPLOYEE_ID"/>
+    <property name="sign_time" column="SIGN_TIME"/>
+  </class>
+</hibernate-mapping>

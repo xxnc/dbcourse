@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="/Scripts/jquery-1.10.2.js"></script>
 <script src="/Scripts/md5.js"></script>
-<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script src="/Scripts/angular.min.js"></script>
 <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
 <script type="text/javascript">
     $(function () {
@@ -54,7 +54,6 @@
     <div class="form-group">
         <label for="pwd">密码</label>
         <input id="pwd" name="pwd" class="form-control" type="password" ng-model="pwd" ng-blur="pwdFinish=true" ng-focus="pwdFinish=false" ng-maxlength="20" ng-minlength="6" required/>
-
         <span ng-show="form.pwd.$error.minlength && pwdFinish">密码长度不能小于6位</span>
         <span ng-show="form.pwd.$error.maxlength && pwdFinish">密码长度不能大于20位</span>
     </div>
@@ -79,7 +78,7 @@
         <label for="code">验证码</label>
         <input id="code" class="form-control" type="text" ng-model="code" ng-blur="codeFinish=true" ng-focus="codeFinish=false" />
         <img src="/Account/CreateCodeImg" />
-        <span id="error" ng-show="codeFinish && isError()">验证码错误</span>
+        <span ng-show="codeFinish && isError()">验证码错误</span>
     </div>
 
     <button id="register" class="btn btn-primary" ng-disabled="">注册</button>
@@ -98,12 +97,6 @@
         $scope.error = true;
         $scope.roles = [{ role: "管理员1", index: 1 }, { role: "管理员2", index: 2 }, { role: "管理员3", index: 3 }];
         $scope.isError = function () {
-            //$http.get("/Account/Validate")
-            //$http.post(
-            //    "/Account/Validate",
-            //    { "code": $scope.code }
-
-            //);
             $http({
                 method : "POST",
                 url : "/Account/Validate",

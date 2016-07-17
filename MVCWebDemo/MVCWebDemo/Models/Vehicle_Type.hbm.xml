@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="MVCWebDemo.Models" assembly="MVCWebDemo" >
+  <class name="Vehicle_Type" table="VEHICLE_TYPE">
+    <id name="type_id" column="TYPE_ID">
+      <generator class="assigned"/>
+    </id>
+    <property name="capacity" column="CAPACITY"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="MVCWebDemo.Models" assembly="MVCWebDemo" >
+  <class name="Driver" table="DRIVER">
+    <id name="employee_id" column="EMPLOYEE_ID">
+      <generator class="assigned"/>
+    </id>
+    <property name="name" column="NAME"/>
+    <property name="phone" column="PHONE"/>
+    <property name="station_id" column="STATION_ID"/>
+  </class>
+</hibernate-mapping>

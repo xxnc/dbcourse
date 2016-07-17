@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="MVCWebDemo.Models" assembly="MVCWebDemo" >
+  <class name="Vehicle" table="VEHICLE">
+    <id name="vehicle_id" column="VEHICLE_ID">
+      <generator class="assigned"/>
+    </id>
+    <property name="plate_number" column="PLATE_NUMBER"/>
+    <property name="type_id" column="TYPE_ID"/>
+    <property name="vehicle_state" column="VEHICLE_STATE"/>
+    <property name="station_id" column="STATION_ID"/>
+  </class>
+</hibernate-mapping>

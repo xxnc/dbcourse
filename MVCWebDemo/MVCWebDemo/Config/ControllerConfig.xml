@@ -4,7 +4,28 @@
   <object id="AccountController" type="MVCWebDemo.Controllers.AccountController,MVCWebDemo" singleton="false">
     <property name="usersService" ref="UsersService"/>
   </object>
+  <object id="AfterSaleController" type="MVCWebDemo.Controllers.AfterSaleController,MVCWebDemo" singleton="false">
+  
+  </object>
+  <object id="CostController" type="MVCWebDemo.Controllers.CostController,MVCWebDemo" singleton="false">
+    
+  </object>
+  <object id="DeliveryController" type="MVCWebDemo.Controllers.DeliveryController,MVCWebDemo" singleton="false">
+ 
+  </object>
+  <object id="HomeController" type="MVCWebDemo.Controllers.HomeController,MVCWebDemo" singleton="false">
+   
+  </object>
   <object id="OrderController" type="MVCWebDemo.Controllers.OrderController,MVCWebDemo" singleton="false">
     <property name="ordersService" ref="OrdersService"/>
+  </object>
+  <object id="SignController" type="MVCWebDemo.Controllers.SignController,MVCWebDemo" singleton="false">
+  
+  </object>
+  <object id="StationController" type="MVCWebDemo.Controllers.StationController,MVCWebDemo" singleton="false">
+  
+  </object>
+  <object id="TransportationController" type="MVCWebDemo.Controllers.TransportationController,MVCWebDemo" singleton="false">
+  
   </object>
 </objects>

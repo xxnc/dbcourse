@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="MVCWebDemo.Models" assembly="MVCWebDemo" >
+  <class name="Schedule" table="SCHEDULE">
+    <id name="schedule_id" column="SCHEDULE_ID">
+      <generator class="assigned"/>
+    </id>
+    <property name="station_id" column="STATION_ID"/>
+    <property name="time_slot" column="TIME_SLOT"/>
+    <property name="employee_id" column="EMPOLYEE_ID"/>
+    <property name="vehicle_id" column="VEHICLE_ID"/>
+    <property name="day" column="DAY"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="MVCWebDemo.Models" assembly="MVCWebDemo" >
+  <class name="Location" table="LOCATION">
+    <composite-id name="location_pk" class="LocationPK">
+      <key-property name="order_id" column="ORDER_ID"/>
+      <key-property name="arrive_station" column="ARRIVE_STATION"/>
+      <key-property name="to_station" column="TO_STATION"/>
+    </composite-id>
+    <property name="arrive_time" column="ARRIVE_TIME"/>
+    <property name="start_time" column="START_TIME"/>
+    <property name="schedule_id" column="SCHEDULE_ID"/>
+  </class>
+</hibernate-mapping>

@@ -2,20 +2,14 @@
     ViewBag.Title = "Home Page";
 }
 <script src="/Scripts/jquery-1.10.2.js"></script>
-<script type="text/javascript">
+<script src="/Scripts/angular.min.js"></script>
+@*<script type="text/javascript">
     $(function () {
         $("#register").click(function () {
-            alert("qrwerqe");
             location.href = "/Account/RegisterForm";
             
         });
-        $("#test").click(function () {
-            $.post("/Order/QueryOrder",
-                {station_id:"000001"},
-                function (data) {
-                    alert("test");
-                })
-        })
+      
         $("#login").click(function () {
             $.post("/Account/Validate",
                     { code: $("#code").val() },
@@ -40,43 +34,123 @@
         })
 
     });
+</script>*@
+
+<form name="form" class="form-group" style="padding-top:100px" ng-app="logform" ng-controller="validateCtrl">
+    
+        <span ng-show="nameFinish && pwdFinish && !_true">用户名或密码错误</span>
+        <span>{{nameFinish}} {{pwdFinish}} {{_true}}</span>
+        <div class="row">
+            <label for="name" class="control-label col-md-1 col-md-push-3" >用户名</label>
+            <div class="col-md-6 col-md-push-3">
+                <input type="text" id="name" name="name" class="form-control" ng-model="name" ng-blur="isTrue(1)" ng-focus="nameFinish=false" required />
+            </div>
+            <span ng-show="nameFinish && !form.name.$valid">用户名不能为空</span>
+
+        </div>
+        <br />
+
+        <div class="row">
+            <label for="pwd" class="control-label col-md-1 col-md-push-3">密码</label>
+            <div class="col-md-6 col-md-push-3">
+                <input type="password" id="pwd" name="pwd" class="form-control" ng-model="pwd" ng-blur="isTrue(2)" ng-focus="pwdFinish=false" required />
+            </div>
+            <span ng-show="pwdFinish && !form.pwd.$valid">密码不能为空</span>
+        </div>
+        <br />
+
+
+        <div class="row">
+            <label for="validate" class="control-label col-md-1 col-md-push-3">验证码</label>
+            <div class="col-md-4 col-md-push-3">
+                <input type="text" id="code" name="code" class="form-control" ng-model="code" ng-blur="isValid()" ng-focus="codeFinish=false" required/>
+            </div>
+            <div class="col-md-3 col-md-push-3">
+                <img id="code" style="height:50px;width:90px" src="/Account/CreateCodeImg"/>
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <span ng-show="codeFinish && !form.code.$valid">验证码不能为空</span>
+            <span ng-show="codeFinish  && form.code.$valid && !valid">验证码错误</span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2 col-md-push-4">
+                <button class="btn btn-primary col-md-6" id="login" ng-click="login()">登录</button>
+            </div>
+            <div class="col-md-2 col-md-push-4">
+                <button class="btn btn-primary col-md-6" id="register">注册</button>
+            </div>
+        </div>
+</form>
+   
+<script>
+    var app = angular.module("logform", []);
+    app.controller("validateCtrl", function ($scope, $q, $http,$location) {
+        $scope.nameFinish = false;
+        $scope.pwdFinish = false;
+        $scope.codeFinish = false;
+        $scope.valid = false;
+        $scope._true = false;
+        $scope.login = function () {
+            if ($scope.valid && $scope._true) {
+                alert("redirect");
+                location.href = "/Order/";
+            }
+        }
+
+        $scope.isTrue = function (which) {
+
+            if (which == "1") {
+                $scope.nameFinish = true;
+            }
+            else {
+                $scope.pwdFinish = true;
+            }
+            if($scope.form.name.$valid && $scope.form.pwd.$valid){
+                $http({
+                    method: "POST",
+                    url: "/Account/Login",
+                    params: {
+                        "name": $scope.name,
+                        "pwd": $scope.pwd
+                    }
+                }).success(function (response, status, headers, config) {
+                    //alert(response);
+                    if (response == "true") {
+                        $scope._true = true;
+                    }
+                });
+            }
+            
+
+        }
+        $scope.isValid = function () {
+            $scope.codeFinish = true;
+            if ($scope.form.code.$valid) {
+                $http({
+                    method: "POST",
+                    url: "/Account/Validate",
+                    params: {
+                        "code": $scope.code
+                    }
+                }).success(function (response, status, headers, config) {
+                    if (response == "true") {
+                        $scope.valid = true;
+                    }
+                });
+            }
+            
+
+        }
+    });
+
+  
+
+
 </script>
 
-<div class="form-group" style="padding-top:100px">
-    <div class="row">
-        <label for="name" class="control-label col-md-1 col-md-push-3">用户名</label>
-        <div class="col-md-6 col-md-push-3">
-            <input type="text" id="name" class="form-control" />
-        </div>
-    </div>
-    <br />
-
-    <div class="row">
-        <label for="pwd" class="control-label col-md-1 col-md-push-3">密码</label>
-        <div class="col-md-6 col-md-push-3">
-            <input type="text" id="pwd" class="form-control" />
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <label for="validate" class="control-label col-md-1 col-md-push-3">验证码</label>
-        <div class="col-md-4 col-md-push-3">
-            <input type="text" id="validate" class="form-control" />
-        </div>
-        <div class="col-md-3 col-md-push-3">
-            <img id="code" style="height:50px;width:90px" src="/Account/CreateCodeImg" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2 col-md-push-4">
-            <button class="btn btn-primary col-md-6" id="login">登录</button>
-        </div>
-        <div class="col-md-2 col-md-push-4">
-            <button class="btn btn-primary col-md-6" id="register">注册</button>
-        </div>
-    </div>
-    <button id="test">test</button>
-</div>
-   
 
 

@@ -11,11 +11,11 @@ using System.Collections;
 
 namespace MVCWebDemo.DAOImpl
 {
-    public class OrdersDAOImpl : OrdersDAO
+    public class OrdersDAOImpl:OrdersDAO
     {
         public ISessionFactory factory { set; get; }
 
-        public Dictionary<string, object> getEntity(Dictionary<string, string> info)
+        public Dictionary<string,object> getEntity(Dictionary<string, string> info)
         {
             ISession session = factory.OpenSession();
             Dictionary<string, object> result = new Dictionary<string, object>();
@@ -84,3 +84,4 @@ namespace MVCWebDemo.DAOImpl
         }
     }
 }
+
