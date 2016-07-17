@@ -18,6 +18,9 @@ namespace MVCWebDemo.ServiceImpl
             return ordersDAO.getEntity(info);
         }
 
-        
+        public bool createOrders(Dictionary<string, string> info)
+        {
+            return ordersDAO.createEntity(info);
+        }
     }
 }

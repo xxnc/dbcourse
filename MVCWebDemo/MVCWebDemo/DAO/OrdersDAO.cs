@@ -10,6 +10,7 @@ namespace MVCWebDemo.DAO
     {
         Dictionary<string, object> getEntity(Dictionary<string, string> info);
 
+        bool createEntity(Dictionary<string, string> info);
     }
 
 
